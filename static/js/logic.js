@@ -138,18 +138,24 @@ function createLayeredMap(earthquakes)
       var colors = [
           "orangered",
           "tomato",
-          "rgb(243, 219, 77)",
-          "rgb(243, 186, 77)",
-          "rgb(240, 167, 107)",
-          "rgb(240, 107, 107)"];
+          "maroon",
+          "darkred",
+          "red",
+          "firebrick",
+          "crimson",
+          "indianred",
+          "lightcoral",
+          "rsalmoned",
+          "lightsalmon",
+        "palevioletred"];
       var labels = [];
 
-      var legendInfo = "<h1>Earthquake intensity<h1>" + 
+      var legendInfo = "<h1>Earthquake intensity by Depth<h1>" + 
           "<div class=\"labels\">" +
-              "<div class=\"max\">5+</div>" +
-              "<div class=\"fourth\">4-5</div>" +
-              "<div class=\"third\">3-4</div>" +
-              "<div class=\"second\">2-3</div>" +
+              "<div class=\"max\">100+</div>" +
+              "<div class=\"fourth\">90+</div>" +
+              "<div class=\"third\">80+</div>" +
+              "<div class=\"second\">70+/div>" +
               "<div class=\"first\">1-2</div>" +
               "<div class=\"min\">0-1</div>" +
           "</div>";
