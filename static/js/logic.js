@@ -130,6 +130,43 @@ function createLayeredMap(earthquakes)
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+
+  var legend = L.control({position: "bottomright"});
+  legend.onAdd = function() {
+      var div = L.DomUtil.create("div", "info legend");
+      var colors = [
+          "orangered",
+          "tomato",
+          "rgb(243, 219, 77)",
+          "rgb(243, 186, 77)",
+          "rgb(240, 167, 107)",
+          "rgb(240, 107, 107)"];
+      var labels = [];
+
+      var legendInfo = "<h1>Earthquake intensity<h1>" + 
+          "<div class=\"labels\">" +
+              "<div class=\"max\">5+</div>" +
+              "<div class=\"fourth\">4-5</div>" +
+              "<div class=\"third\">3-4</div>" +
+              "<div class=\"second\">2-3</div>" +
+              "<div class=\"first\">1-2</div>" +
+              "<div class=\"min\">0-1</div>" +
+          "</div>";
+
+      div.innerHTML = legendInfo;
+
+      colors.forEach(function(color) {
+          labels.push("<li style=\"background-color: " + color + "\"></li>");
+      });
+
+      div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+      return div;
+  };
+  // Append label to the map
+  legend.addTo(myMap);
+
+
 }
 
 
