@@ -133,9 +133,41 @@ function createLayeredMap(earthquakes)
 
 
   var legend = L.control({position: "bottomright"});
-  legend.onAdd = function() {
+  legend.onAdd = function(myMap) {
       var div = L.DomUtil.create("div", "info legend");
-      var colors = [
+
+    labels = ['<strong>Earthquake Intensity</strong>'],
+    categories = ['100+','90+','80+','70+','60+','50+','40+','30+','20+','10+','0+','<0'];
+
+    var colors = [
+        "orangered",
+        "tomato",
+        "maroon",
+        "darkred",
+        "red",
+        "firebrick",
+        "crimson",
+        "indianred",
+        "lightcoral",
+        "rsalmoned",
+        "lightsalmon",
+      "palevioletred"]
+
+
+    for (var i = 0; i < categories.length; i++) {
+
+        div.innerHTML += 
+        labels.push("<li style=\"background-color: " + colors[i] + "\"></li>");
+        
+
+    }
+    div.innerHTML = labels.join('<br>');
+    return div;
+    };
+
+    legend.addTo(myMap);
+
+      /*var colors = [
           "orangered",
           "tomato",
           "maroon",
@@ -152,12 +184,9 @@ function createLayeredMap(earthquakes)
 
       var legendInfo = "<h1>Earthquake intensity by Depth<h1>" + 
           "<div class=\"labels\">" +
-              "<div class=\"max\">100+</div>" +
-              "<div class=\"fourth\">90+</div>" +
-              "<div class=\"third\">80+</div>" +
-              "<div class=\"second\">70+/div>" +
-              "<div class=\"first\">1-2</div>" +
-              "<div class=\"min\">0-1</div>" +
+          "<div class=\"max\">10+</div>" +
+             
+            
           "</div>";
 
       div.innerHTML = legendInfo;
@@ -170,9 +199,21 @@ function createLayeredMap(earthquakes)
       return div;
   };
   // Append label to the map
-  legend.addTo(myMap);
+  legend.addTo(myMap);*/
 
 
+}
+
+
+function getColor(d) {
+    return d > 100 ? '#800026' :
+           d > 500  ? '#BD0026' :
+           d > 200  ? '#E31A1C' :
+           d > 100  ? '#FC4E2A' :
+           d > 50   ? '#FD8D3C' :
+           d > 20   ? '#FEB24C' :
+           d > 10   ? '#FED976' :
+                      '#FFEDA0';
 }
 
 
