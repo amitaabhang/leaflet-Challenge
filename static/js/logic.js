@@ -1,50 +1,11 @@
 // Get data url
 url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
-function getColorByDepth(depth)
-{
-    switch(true) {
-
-        case depth >= 100:
-        return 	"orangered";
-          
-        case depth >= 90:
-        return 	"tomato";
-        
-
-        case depth >= 80:
-        return 	"maroon";
-
-        case depth >= 70:
-            return 	"darkred";
-
-        case depth >= 60:
-            return 	"red";
-
-        case depth >= 50:
-            return 	"firebrick";
-    
-        case depth >=40:
-            return 	"crimson";
-    
-        case depth >= 30:
-            return 	"indianred";
-    
-        case depth >= 20:
-            return 	"lightcoral";
-
-        case depth >= 10:
-            return 	"salmon";
-          
-        case depth >= 0:
-            return 	"lightsalmon";
-
-        default:
-            return 	"palevioletred";
-
-      }
-
-}
+// Get earthquakes data
+d3.json(url, function(data) {
+    // Create features with the earthquakes data
+    createFeatures(data.features)
+});
 
 
 // Declare function to create map features.
@@ -149,7 +110,7 @@ function createLayeredMap(earthquakes)
         "crimson",
         "indianred",
         "lightcoral",
-        "rsalmoned",
+        "salmon",
         "lightsalmon",
       "palevioletred"]
 
@@ -157,6 +118,7 @@ function createLayeredMap(earthquakes)
     for (var i = 0; i < categories.length; i++) {
 
         div.innerHTML += 
+        labels.push("<li style=\"background-color: " + colors[i] +  categories[i] ? categories[i] :+ "\"></li>");
         labels.push("<li style=\"background-color: " + colors[i] + "\"></li>");
         
 
@@ -167,113 +129,54 @@ function createLayeredMap(earthquakes)
 
     legend.addTo(myMap);
 
-      /*var colors = [
-          "orangered",
-          "tomato",
-          "maroon",
-          "darkred",
-          "red",
-          "firebrick",
-          "crimson",
-          "indianred",
-          "lightcoral",
-          "rsalmoned",
-          "lightsalmon",
-        "palevioletred"];
-      var labels = [];
-
-      var legendInfo = "<h1>Earthquake intensity by Depth<h1>" + 
-          "<div class=\"labels\">" +
-          "<div class=\"max\">10+</div>" +
-             
-            
-          "</div>";
-
-      div.innerHTML = legendInfo;
-
-      colors.forEach(function(color) {
-          labels.push("<li style=\"background-color: " + color + "\"></li>");
-      });
-
-      div.innerHTML += "<ul>" + labels.join("") + "</ul>";
-      return div;
-  };
-  // Append label to the map
-  legend.addTo(myMap);*/
-
-
-}
-
-
-function getColor(d) {
-    return d > 100 ? '#800026' :
-           d > 500  ? '#BD0026' :
-           d > 200  ? '#E31A1C' :
-           d > 100  ? '#FC4E2A' :
-           d > 50   ? '#FD8D3C' :
-           d > 20   ? '#FEB24C' :
-           d > 10   ? '#FED976' :
-                      '#FFEDA0';
-}
-
-
-
-// Declare function to create map
-function createMap(earthquakes) {
-    // Get initial light layer
-    var mapLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-      attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-      tileSize: 512,
-      maxZoom: 18,
-      zoomOffset: -1,
-      id: "mapbox/light-v10",
-      accessToken: API_KEY
-    });
-    // Declare map object and set it to the map element in the DOM
-    var myMap = L.map("map", {
-        center: [29.876019, -107.224121],
-        zoom: 4.5,
-        layers: [mapLayer, earthquakes]
-    });
-    // Create a legend for the map based on the earthquakes data and colors
-    var legend = L.control({position: "bottomright"});
-    legend.onAdd = function() {
-        var div = L.DomUtil.create("div", "info legend");
-        var colors = [
-            "rgb(183, 243, 77)",
-            "rgb(226, 243, 77)",
-            "rgb(243, 219, 77)",
-            "rgb(243, 186, 77)",
-            "rgb(240, 167, 107)",
-            "rgb(240, 107, 107)"];
-        var labels = [];
-
-        var legendInfo = "<h1>Earthquake intensity<h1>" + 
-            "<div class=\"labels\">" +
-                "<div class=\"max\">5+</div>" +
-                "<div class=\"fourth\">4-5</div>" +
-                "<div class=\"third\">3-4</div>" +
-                "<div class=\"second\">2-3</div>" +
-                "<div class=\"first\">1-2</div>" +
-                "<div class=\"min\">0-1</div>" +
-            "</div>";
-
-        div.innerHTML = legendInfo;
-
-        colors.forEach(function(color) {
-            labels.push("<li style=\"background-color: " + color + "\"></li>");
-        });
-
-        div.innerHTML += "<ul>" + labels.join("") + "</ul>";
-        return div;
-    };
-    // Append label to the map
-    legend.addTo(myMap);
-
 };
 
-// Get earthquakes data
-d3.json(url, function(data) {
-    // Create features with the earthquakes data
-    createFeatures(data.features)
-});
+
+
+function getColorByDepth(depth)
+    {
+        switch(true) {
+    
+            case depth >= 100:
+            return 	"orangered";
+              
+            case depth >= 90:
+            return 	"tomato";
+            
+    
+            case depth >= 80:
+            return 	"maroon";
+    
+            case depth >= 70:
+                return 	"darkred";
+    
+            case depth >= 60:
+                return 	"red";
+    
+            case depth >= 50:
+                return 	"firebrick";
+        
+            case depth >=40:
+                return 	"crimson";
+        
+            case depth >= 30:
+                return 	"indianred";
+        
+            case depth >= 20:
+                return 	"lightcoral";
+    
+            case depth >= 10:
+                return 	"salmon";
+              
+            case depth >= 0:
+                return 	"lightsalmon";
+    
+            default:
+                return 	"palevioletred";
+    
+          }
+    
+}
+
+
+
